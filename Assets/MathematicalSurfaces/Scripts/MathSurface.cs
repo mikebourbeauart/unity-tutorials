@@ -8,8 +8,7 @@ public class MathSurface : MonoBehaviour
     [Range(10, 100)] 
     public int resolution = 10;
     
-    [Range(0, 1)]
-    public int function;
+    public GraphFunctionName function;
 
     Transform[] points;
 
@@ -35,24 +34,22 @@ public class MathSurface : MonoBehaviour
 
     void Update() {
         float t = Time.time;
+        GraphFunction f = functions[(int)function];
         for(int i=0; i < points.Length; i++){
             Transform point = points[i];
             float step = 2f / resolution;
             Vector3 position = point.localPosition;
-            if (function == 0) {
-                position.y = SineFunction(position.x, t);
-            }
-            else {
-                position.y = MultiSineFunction(position.x, t);
-            }
             point.localPosition = position;
         }
     }
 
-    float SineFunction (float x, float t) {
+    static GraphFunction[] functions = {
+            SineFunction, MultiSineFunction
+        };
+    static float SineFunction (float x, float t) {
         return Mathf.Sin(Mathf.PI * (x + t));
     }
-    float MultiSineFunction  (float x, float t) {
+    static float MultiSineFunction  (float x, float t) {
         float y = Mathf.Sin(Mathf.PI * (x + t));
         y += Mathf.Sin(2f * Mathf.PI * (x + 2f * t)) / 2f;
         y *= 2f/3f;

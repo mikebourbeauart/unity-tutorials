@@ -39,11 +39,11 @@ public class Octree<TType>
 
         public Vector3 Position 
         { 
-            get {return Position;}
+            get {return position;}
         }
         public float Size 
         { 
-            get {return Size;}
+            get {return size;}
         }
 
         public OctreeNode(Vector3 pos, float size) 

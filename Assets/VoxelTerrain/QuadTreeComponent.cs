@@ -7,13 +7,17 @@ public class QuadtreeComponent : MonoBehaviour
 {
     public float size = 5;
     public int depth = 2;
+    private Quadtree<bool> quadtree;
 
-    public Transform[] points = new Transform[0];
-
-    // Start is called before the first frame update
-    void Start()
+    public Quadtree<bool> Quadtree 
     {
-        
+        get { return quadtree; }
+    }
+
+    // Awake happens before start
+    void Awake()
+    {
+        quadtree = new Quadtree<bool>(this.transform.position, size, depth);
     }
 
     // Update is called once per frame
@@ -22,15 +26,12 @@ public class QuadtreeComponent : MonoBehaviour
         
     }
 
-    void OnDrawGizmos() {
-        var quadtree = new Quadtree<bool>(this.transform.position, size, depth);
-        
-        foreach(var point in points)
+    void OnDrawGizmos() 
+    {   
+        if (quadtree != null)
         {
-            quadtree.Insert(point.position, true);
+            DrawNode(quadtree.GetRoot());
         }
-
-        DrawNode(quadtree.GetRoot());
     }
 
     private Color minColor = new Color(1, 1, 1, 1f);

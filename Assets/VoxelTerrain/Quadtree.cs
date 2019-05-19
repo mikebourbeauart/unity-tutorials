@@ -25,7 +25,7 @@ public class Quadtree<TType>
 
 	public void Insert( Vector2 position, TType value)
 	{
-		node.Subdivide(position, value, depth);
+		node.Subdivide(position, value, depth - 1);
 	}
 
 	public class QuadtreeNode<TType> // Inside the Octree class so it will only be used within an octree

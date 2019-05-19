@@ -212,7 +212,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 689362916}
-  - component: {fileID: 689362917}
   m_Layer: 0
   m_Name: Quadtree
   m_TagString: Untagged
@@ -234,20 +233,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &689362917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 689362915}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688e4c93d783b444b985fc3d1a090876, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 5
-  depth: 1
 --- !u!1 &1624312408
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,7 +340,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1671088645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,7 +354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 5
-  depth: 0
+  depth: 1
 --- !u!4 &1671088646
 Transform:
   m_ObjectHideFlags: 0

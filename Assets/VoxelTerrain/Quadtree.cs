@@ -14,10 +14,17 @@ public class Quadtree<TType>
     private QuadtreeNode<TType> node; // Root node
     private int depth; // How deep the three can go (resolution) (number of subdivisions of cube)
 
+
     public Quadtree(Vector2 position, float size, int depth)
     {
         node = new QuadtreeNode<TType>(position, size);
-        node.Subdivide(depth);
+        this.depth = depth;
+        // node.Subdivide(depth);
+    }
+
+    public void Insert( Vector2 position, TType value)
+    {
+        node.Subdivide(position, value, depth);
     }
 
     public class QuadtreeNode<TType> 
@@ -25,7 +32,7 @@ public class Quadtree<TType>
         Vector2 position;
         float size; // Cube, so all sizes will be identical and not require a Vector3
         QuadtreeNode<TType>[] subNodes;
-        IList<TType> value;
+        TType value;
 
         public IEnumerable<QuadtreeNode<TType>> Nodes 
         { 
@@ -48,9 +55,12 @@ public class Quadtree<TType>
             get {return size;}
         }
 
-        public void Subdivide(int depth = 0)
+        public void Subdivide(Vector2 targetPosition, TType value, int depth = 0)
         {
             subNodes = new QuadtreeNode<TType>[4];
+
+            var subdiveIndex = GetIndexOfPosition(targetPosition, position);
+
             for (int i = 0; i < subNodes.Length; ++i)
             {
                 Vector2 newPos = position;
@@ -73,9 +83,10 @@ public class Quadtree<TType>
                 }
 
                 subNodes[i] = new QuadtreeNode<TType>(newPos, size * 0.5f);
-                if (depth > 0)
+                if (depth > 0 && subdiveIndex == i)
                 {
-                    subNodes[i].Subdivide(depth-1);
+                    subNodes[i].Subdivide(targetPosition, value, depth-1);
+                    
                 }
             }
         }
@@ -86,7 +97,7 @@ public class Quadtree<TType>
         }
     }
 
-    private int GetIndexOfPosition(Vector2 lookupPosition, Vector2 nodePosition)
+    private static int GetIndexOfPosition(Vector2 lookupPosition, Vector2 nodePosition)
     {
         int index = 0;
 

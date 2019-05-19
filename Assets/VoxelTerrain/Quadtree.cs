@@ -28,12 +28,12 @@ public class Quadtree<TType>
 		node.Subdivide(position, value, depth);
 	}
 
-	public class QuadtreeNode<TType> 
+	public class QuadtreeNode<TType> // Inside the Octree class so it will only be used within an octree
 	{
-		Vector2 position;
+		Vector2 position; // Position of the node itself
 		float size; // Cube, so all sizes will be identical and not require a Vector3
 		QuadtreeNode<TType>[] subNodes;
-		TType value;
+		TType value; // IList so we can add and remove things
 
 		public IEnumerable<QuadtreeNode<TType>> Nodes 
 		{ 
@@ -55,7 +55,8 @@ public class Quadtree<TType>
 		{ 
 			get {return size;}
 		}
-
+		
+		// Subdivides the node	
 		public void Subdivide(Vector2 targetPosition, TType value, int depth = 0)
 		{
 			var subdivIndex = GetIndexOfPosition(targetPosition, position);
@@ -102,6 +103,7 @@ public class Quadtree<TType>
 		}
 	}
 
+	// Given a position, where is it within the square?
 	private static int GetIndexOfPosition(Vector2 lookupPosition, Vector2 nodePosition)
 	{
 		int index = 0;

@@ -96,7 +96,6 @@ public class Octree<TType>
                 }
             }
         }
-
         public bool IsLeaf()
         {
             return subNodes == null;

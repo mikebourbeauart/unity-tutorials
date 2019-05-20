@@ -7,6 +7,7 @@ public class ImageToVoxelGenerator : MonoBehaviour
 
     public Texture2D image;
     public QuadtreeComponent quadtree;
+    public float threshold = 0.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -35,8 +36,14 @@ public class ImageToVoxelGenerator : MonoBehaviour
                 position.x += (x - cells / 2) / (float)cells * quadtree.size; 
                 position.y += (y - cells / 2) / (float)cells * quadtree.size; 
 
-                //Fill cells
-                quadtree.Quadtree.Insert(position, true);
+                var pixel = image.GetPixelBilinear(x / (float)cells, y / (float)cells);
+                
+                if (pixel.r > threshold)
+                {
+                    //Fill cells
+                    quadtree.Quadtree.Insert(position, true);
+
+                }
             }
         }
     }

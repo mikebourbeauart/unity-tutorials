@@ -41,7 +41,7 @@ public class Quadtree<TType>
 
 		}
 
-		public QuadtreeNode(Vector2 pos, float size) 
+		public QuadtreeNode(Vector2 pos, float size, TType value = default(TType)) 
 		{
 			position = pos;
 			this.size = size;
@@ -51,9 +51,15 @@ public class Quadtree<TType>
 		{ 
 			get {return position;}
 		}
+
 		public float Size 
 		{ 
 			get {return size;}
+		}
+
+		public TType Value
+		{
+			get {return value;}
 		}
 		
 		// Subdivides the node	
@@ -101,6 +107,26 @@ public class Quadtree<TType>
 		{
 			return subNodes == null;
 		}
+
+		public IEnumerable<QuadtreeNode<TType>> GetLeafNodes()
+		{
+			if (IsLeaf())
+			{
+				// Return current node
+				yield return this;
+			}
+			// Otherwise recursively call each ndoe
+			else
+			{
+				foreach(var node in Nodes)
+				{
+					foreach (var leaf in node.GetLeafNodes())
+					{
+						yield return leaf;
+					}
+				}
+			}
+		}
 	}
 
 	// Given a position, where is it within the square?
@@ -117,6 +143,11 @@ public class Quadtree<TType>
 	public QuadtreeNode<TType> GetRoot()
 	{
 		return node;
+	}
+
+	public IEnumerable<QuadtreeNode<TType>> GetLeafNodes()
+	{
+		return node.GetLeafNodes();
 	}
 }
 

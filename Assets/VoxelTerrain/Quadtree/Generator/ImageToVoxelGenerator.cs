@@ -25,9 +25,9 @@ public class ImageToVoxelGenerator : MonoBehaviour
     {
         // Pow function will tell us numb of rows across of the quadtree
         int cells = (int)Mathf.Pow(2, quadtree.depth); 
-        for (int x = 0; x < cells; ++ x)
+        for (int x = 0; x <= cells; ++ x)
         {
-            for (int y = 0; y < cells; ++y)
+            for (int y = 0; y <= cells; ++y)
             {
                 // Get quadtree pos in world space
                 Vector2 position = quadtree.transform.position;

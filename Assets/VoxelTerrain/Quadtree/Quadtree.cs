@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +16,8 @@ public class Quadtree<TType>
 	private QuadtreeNode<TType> node; // Root node
 	private int depth; // How deep the three can go (resolution) (number of subdivisions of cube)
 
-
+	public event EventHandler QuadtreeUpdated;
+	
 	public Quadtree(Vector2 position, float size, int depth)
 	{
 		node = new QuadtreeNode<TType>(position, size, depth);
@@ -27,6 +29,15 @@ public class Quadtree<TType>
 	{
 		var leafNode= node.Subdivide(position, value, depth);
 		leafNode.Data = value;
+		NotifyQuadtreeUpdate();
+	}
+
+	private void NotifyQuadtreeUpdate()
+	{
+		if (QuadtreeUpdated != null)
+		{
+			QuadtreeUpdated(this, new EventArgs());
+		}
 	}
 
 	public class QuadtreeNode<TType> // Inside the Octree class so it will only be used within an octree

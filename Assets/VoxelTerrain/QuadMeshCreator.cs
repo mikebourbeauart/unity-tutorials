@@ -34,13 +34,15 @@ public class QuadMeshCreator : MonoBehaviour
     {
         foreach (var leaf in quadtree.Quadtree.GetLeafNodes())
         {
-            //if (leaf)
-            var gobj = GameObject.CreatePrimitive(PrimitiveType.Quad);
-            // Parent gameobject under quadtree transform
-            gobj.transform.parent = quadtree.transform;
-            // Center it at quadtree node transform
-            gobj.transform.position = leaf.Position;
-            gobj.transform.localScale = Vector3.one * leaf.Size;
+            if (leaf.Data)
+            {
+                var gobj = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                // Parent gameobject under quadtree transform
+                gobj.transform.parent = quadtree.transform;
+                // Center it at quadtree node transform
+                gobj.transform.position = leaf.Position;
+                gobj.transform.localScale = Vector3.one * leaf.Size;
+            }
         }
     }
 }

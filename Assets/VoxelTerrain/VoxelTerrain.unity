@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 8
-  depth: 4
+  depth: 6
 --- !u!114 &689362918
 MonoBehaviour:
   m_ObjectHideFlags: 0

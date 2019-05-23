@@ -7,6 +7,7 @@ public class QuadtreeComponent : MonoBehaviour
 {
     public float size = 5;
     public int depth = 2;
+
     private Quadtree<bool> quadtree;
 
     public Quadtree<bool> Quadtree 
@@ -41,13 +42,17 @@ public class QuadtreeComponent : MonoBehaviour
     {
         if (!node.IsLeaf())
         {
-            foreach (var subnode in node.Nodes)
+            if (node.Nodes != null)
             {
-                if (subnode != null)
+                foreach (var subnode in node.Nodes)
                 {
-                DrawNode(subnode, nodeDepth + 1);
+                    if (subnode != null)
+                    {
+                    DrawNode(subnode, nodeDepth + 1);
+                    }
                 }
             }
+            
         }
         Gizmos.color = Color.Lerp(minColor, maxColor, nodeDepth / (float)depth);
         Gizmos.DrawWireCube(node.Position, new Vector3(1, 1, 0.1f) * node.Size);
